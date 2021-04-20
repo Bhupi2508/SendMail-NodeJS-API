@@ -1,0 +1,27 @@
+{
+  "name": "sendmail-nodejs-api",
+  "version": "1.0.0",
+  "description": "Build a simple API to schedule emails and send them",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bhupi2508/SendMail-NodeJS-API.git"
+  },
+  "author": "Bhupendra Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bhupi2508/SendMail-NodeJS-API/issues"
+  },
+  "homepage": "https://github.com/Bhupi2508/SendMail-NodeJS-API#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "node-cron": "^3.0.0",
+    "nodemailer": "^6.5.0",
+    "nodemon": "^2.0.7"
+  }
+}
