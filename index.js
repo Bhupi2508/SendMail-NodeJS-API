@@ -1,8 +1,8 @@
 /******************************************************************************
  *  Execution       : default node          : cmd> nodemon index.js
- * 
- *  @description    
- * 
+ *
+ *  @description
+ *
  *  @file           : index.js
  *  @overview       : Build a simple API to schedule emails and send them
  *  @author         : Bhupendra Singh <bhupendrasingh.ec18@gmail.com>
