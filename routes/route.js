@@ -1,8 +1,6 @@
 /******************************************************************************
  *  Execution       : default node          : cmd> nodemon route.js
  *
- *  @description
- *
  *  @file           : route.js
  *  @overview       : routes
  *  @author         : Bhupendra Singh <bhupendrasingh.ec18@gmail.com>
@@ -17,6 +15,12 @@ const express = require('express');
 const router = express.Router();
 const mailControler = require('../controller/mailControl');
 
-router.post('/send', mailControler);
+router.post('/second', mailControler.sendMailForEverySecond);
+router.post('/minute', mailControler.sendMailForEveryMinute);
+router.post('/hour', mailControler.sendMailForEveryHour);
+router.post('/dayofmonth', mailControler.sendMailForEveryDayOfMonth);
+router.post('/month', mailControler.sendMailForEveryMonth);
+router.post('/dayofweek', mailControler.sendMailForEveryDayOfWeek);
+
 
 module.exports = router;

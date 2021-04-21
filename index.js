@@ -16,9 +16,19 @@ required files
 const express = require('express')
 const app = express()
 const server = require('http').createServer(app)
-const route = require('./routes/route');
-var controllerChat = require('./controller/mailControl')
+const router = require('./routes/route');
 require('dotenv').config();
+
+/*
+Parses the text as JSON and exposes the resulting object on req.body.
+*/
+app.use(express.json());
+
+// validate the req
+// app.use(expressValidator());
+
+// middlewares
+app.use('/', router);
 
 /*
 server is listen 4000 port 
