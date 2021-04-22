@@ -11,32 +11,29 @@
 /*
 required files
 */
-let nodemailer = require('nodemailer');
-let cron = require('node-cron');
-
+require('dotenv').config();
+const cron = require('node-cron');
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 exports.sendmailServices = (req, routeData) => {
 
     // e-mail message options
-    let mailOptions = {
+    const mailOptions = {
         from: process.env.user,
         to: req.body.to,
-        subject: 'Invitation: Full Stack Developer Interview',
-        html: `<html><body><h3> Please available on time for the <h2> interview </h2> </h3></body></html>`
-    };
+        subject: req.body.subject ? req.body.subject : 'Invitation: Full Stack Developer Interview',
+        text: 'Nodejs sendmail API with scheduling',
+        html:
+            `<h1>Interview - Mean Stack Developer ${new Date().toUTCString()}</h1> 
 
-    // e-mail transport configuration
-    let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.user,
-            pass: process.env.pass
-        }
-    });
+            <h2> Please be ready on time for the interview. </h2>
+        `
+    };
 
     switch (routeData) {
         case 'second':
-            // This function will send the mail in each and every minute
+            // This function will send the mail in each and every second
             cron.schedule('* * * * * *', () => {
                 // Send e-mail
                 mailTransaport()
@@ -45,7 +42,7 @@ exports.sendmailServices = (req, routeData) => {
                     scheduled: true
                 });
             break;
-        case 'minute':
+        case 'second':
             // This function will send the mail in each and every minute
             cron.schedule('* * * * *', () => {
                 // Send e-mail
@@ -56,7 +53,7 @@ exports.sendmailServices = (req, routeData) => {
                 });
             break;
         case 'hour':
-            // This function will send the mail in each and every minute
+            // This function will send the mail in each and every hour
             cron.schedule('* * * *', () => {
                 // Send e-mail
                 mailTransaport()
@@ -66,7 +63,7 @@ exports.sendmailServices = (req, routeData) => {
                 });
             break;
         case 'day of month':
-            // This function will send the mail in each and every minute
+            // This function will send the mail in each and every day of month
             cron.schedule('* * *', () => {
                 // Send e-mail
                 mailTransaport()
@@ -76,7 +73,7 @@ exports.sendmailServices = (req, routeData) => {
                 });
             break;
         case 'month':
-            // This function will send the mail in each and every minute
+            // This function will send the mail in each and every month
             cron.schedule('* *', () => {
                 // Send e-mail
                 mailTransaport()
@@ -86,7 +83,7 @@ exports.sendmailServices = (req, routeData) => {
                 });
             break;
         case 'day fo week':
-            // This function will send the mail in each and every minute
+            // This function will send the mail in each and every day fo week
             cron.schedule('*', () => {
                 // Send e-mail
                 mailTransaport()
@@ -96,19 +93,27 @@ exports.sendmailServices = (req, routeData) => {
                 });
             break;
         default:
-            // This function will send the mail in each and every minute
-            // Send e-mail
-            mailTransaport()
+            // The task won't be executed unless re-started.
+            // const task = cron.schedule(('*' || '* *'), () => {
+            //     // Send e-mail
+            //     mailTransaport()
+            // },
+            //     {
+            //         scheduled: true
+            //     });
+            task.stop()
     }
 
     function mailTransaport() {
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                return error;
-            } else {
-                return info;
-            }
-        });
+        sgMail
+            .send(mailOptions)
+            .then(() => { }, error => {
+                //   console.error(error);
+
+                if (error.response) {
+                    // console.error(error.response.body)
+                }
+            });
     }
 
 }

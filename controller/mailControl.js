@@ -54,6 +54,12 @@ exports.sendMailForEveryDayOfWeek = (req, res) => {
     commonReq(req, res, 'day fo week')
 }
 
+// This control will stop the mail
+exports.sendMailStop = (req, res) => {
+    commonReq(req, res, 'stop')
+}
+
+
 
 // After validate req will send to sendmail service based on rooute
 function commonReq(req, res, routeData) {

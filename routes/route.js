@@ -21,6 +21,7 @@ router.post('/hour', mailControler.sendMailForEveryHour);
 router.post('/dayofmonth', mailControler.sendMailForEveryDayOfMonth);
 router.post('/month', mailControler.sendMailForEveryMonth);
 router.post('/dayofweek', mailControler.sendMailForEveryDayOfWeek);
+router.post('/stop', mailControler.sendMailStop);
 
 
 module.exports = router;
