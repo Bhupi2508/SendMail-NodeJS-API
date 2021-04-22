@@ -15,12 +15,12 @@ const express = require('express');
 const router = express.Router();
 const mailControler = require('../controller/mailControl');
 
-router.post('/second', mailControler.sendMailForEverySecond);
-router.post('/minute', mailControler.sendMailForEveryMinute);
-router.post('/hour', mailControler.sendMailForEveryHour);
-router.post('/dayofmonth', mailControler.sendMailForEveryDayOfMonth);
-router.post('/month', mailControler.sendMailForEveryMonth);
-router.post('/dayofweek', mailControler.sendMailForEveryDayOfWeek);
+router.post('create/second', mailControler.sendMailForEverySecond);
+router.post('create/minute', mailControler.sendMailForEveryMinute);
+router.post('create/hour', mailControler.sendMailForEveryHour);
+router.post('create/dayofmonth', mailControler.sendMailForEveryDayOfMonth);
+router.post('create/month', mailControler.sendMailForEveryMonth);
+router.post('create/dayofweek', mailControler.sendMailForEveryDayOfWeek);
 router.post('/stop', mailControler.sendMailStop);
 
 

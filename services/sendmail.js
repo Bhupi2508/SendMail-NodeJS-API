@@ -18,17 +18,23 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 exports.sendmailServices = (req, routeData) => {
 
-    // e-mail message options
+    /** 
+   * sendEmail 
+   * @param{Object}mailObj - Email information 
+   * @param{String}from- Email address of the sender 
+   * @param{Array}to- Array of recipients email address 
+   * @param{String}subject - Subject of the email 
+   * @param{String}text - Email body 
+   */
     const mailOptions = {
-        from: process.env.user,
+        from: req.body.from ? req.body.from : process.env.user,
         to: req.body.to,
         subject: req.body.subject ? req.body.subject : 'Invitation: Full Stack Developer Interview',
-        text: 'Nodejs sendmail API with scheduling',
-        html:
-            `<h1>Interview - Mean Stack Developer ${new Date().toUTCString()}</h1> 
-
-            <h2> Please be ready on time for the interview. </h2>
-        `
+        text: req.body.text ? req.body.text : 'Nodejs sendmail API with scheduling',
+        html: req.body.html ? req.body.html : `<h1>Interview - Mean Stack Developer ${new Date().toUTCString()}</h1> 
+                                                
+                                                <h2> Please be ready on time for the interview. </h2>
+                                                `
     };
 
     switch (routeData) {
@@ -93,14 +99,6 @@ exports.sendmailServices = (req, routeData) => {
                 });
             break;
         default:
-            // The task won't be executed unless re-started.
-            // const task = cron.schedule(('*' || '* *'), () => {
-            //     // Send e-mail
-            //     mailTransaport()
-            // },
-            //     {
-            //         scheduled: true
-            //     });
             task.stop()
     }
 
